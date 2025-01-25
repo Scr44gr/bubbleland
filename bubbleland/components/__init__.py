@@ -54,8 +54,12 @@ class Projectile(Component):
 class Weapon(Component):
     def __init__(
         self,
+        name: str = "default",
         fire_rate: float = 0.5,
         cooldown: float = 1.0,
+        grabbed: bool = False,
     ):
+        self.name = name
         self.fire_rate = fire_rate
         self.cooldown = cooldown
+        self.grabbed = grabbed
