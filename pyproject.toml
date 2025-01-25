@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=72"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "BubbleLand"
+description = "A game about bubbles"
+authors = [{ name = "Abrahan Gil", email = "scr44gr@protonmail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    'Development Status :: 3 - Alpha',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
+    'Operating System :: Microsoft :: Windows',
+    'Operating System :: POSIX :: Linux',
+    'Operating System :: MacOS :: MacOS X',
+]
+keywords = ['gamejam', 'arepy', 'bubbles', 'shooter', 'python']
+requires-python = ">=3.10"
+dependencies = ["arepy==0.1.4"]
+dynamic = ['version']
+readme = "README.md"
+
+[project.optional-dependencies]
+imgui = ["imgui-bundle==1.6.0", "moderngl==5.12.0"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["bubbleland", "bubbleland.*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "bubbleland.__version__" }
