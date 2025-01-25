@@ -3,7 +3,12 @@ from arepy.bundle.components import RigidBody2D, Sprite, Transform
 from arepy.ecs import Entity
 from arepy.math import Vec2
 
-from bubbleland.components import KeyboardControlled, SimpleRectangle, WalkAnimation
+from bubbleland.components import (
+    Collider,
+    KeyboardControlled,
+    SimpleRectangle,
+    WalkAnimation,
+)
 
 
 def spawn_player(engine: ArepyEngine, mouse_pos: Vec2) -> Entity:
@@ -21,5 +26,6 @@ def spawn_player(engine: ArepyEngine, mouse_pos: Vec2) -> Entity:
         .with_component(SimpleRectangle(width=16, height=32))
         .with_component(KeyboardControlled())
         .with_component(WalkAnimation())
+        .with_component(Collider(width=32, height=32, radius=16))
     ).build()
     return entity

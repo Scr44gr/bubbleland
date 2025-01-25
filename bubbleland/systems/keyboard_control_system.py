@@ -19,45 +19,51 @@ def keyboard_control_system(
 ):
     """Moves entities based on keyboard input."""
     delta_time = renderer.get_delta_time()
+    player = next(iter(query.get_entities()), None)
+    if player is None:
+        return
 
-    for entity in query.get_entities():
-        rigid_body = entity.get_component(RigidBody2D)
-        keyboard_controlled = entity.get_component(KeyboardControlled)
-        transform = entity.get_component(Transform)
-        walk_animation = entity.get_component(WalkAnimation)
+    handle_player_movement_input(player, input, delta_time)
 
-        target_velocity = Vec2(0, 0)
 
-        if input.is_key_down(keyboard_controlled.up_key):
-            target_velocity.y = -1
-        elif input.is_key_down(keyboard_controlled.down_key):
-            target_velocity.y = 1
+def handle_player_movement_input(entity, input, delta_time):
+    rigid_body = entity.get_component(RigidBody2D)
+    keyboard_controlled = entity.get_component(KeyboardControlled)
+    transform = entity.get_component(Transform)
+    walk_animation = entity.get_component(WalkAnimation)
 
-        if input.is_key_down(keyboard_controlled.left_key):
-            target_velocity.x = -1
-        elif input.is_key_down(keyboard_controlled.right_key):
-            target_velocity.x = 1
+    target_velocity = Vec2(0, 0)
 
-        target_velocity_length = abs(target_velocity)
+    if input.is_key_down(keyboard_controlled.up_key):
+        target_velocity.y = -1
+    elif input.is_key_down(keyboard_controlled.down_key):
+        target_velocity.y = 1
 
-        if target_velocity_length > 0:
-            target_velocity.normalize()
+    if input.is_key_down(keyboard_controlled.left_key):
+        target_velocity.x = -1
+    elif input.is_key_down(keyboard_controlled.right_key):
+        target_velocity.x = 1
 
-        if target_velocity_length > 0:
-            rigid_body.velocity = rigid_body.velocity.lerp(
-                target_velocity * rigid_body.max_velocity,
-                rigid_body.acceleration * delta_time,
-            )
+    target_velocity_length = abs(target_velocity)
 
-            walk_animation.walk_time += delta_time * walk_animation.walk_speed
-            transform.rotation = (
-                math.sin(walk_animation.walk_time) * walk_animation.walk_amplitude
-            )
+    if target_velocity_length > 0:
+        target_velocity.normalize()
 
-        else:
-            rigid_body.velocity = rigid_body.velocity.lerp(
-                Vec2(0, 0), rigid_body.deceleration * delta_time
-            )
+    if target_velocity_length > 0:
+        rigid_body.velocity = rigid_body.velocity.lerp(
+            target_velocity * rigid_body.max_velocity,
+            rigid_body.acceleration * delta_time,
+        )
 
-            transform.rotation = 0
-            walk_animation.walk_time = 0.0
+        walk_animation.walk_time += delta_time * walk_animation.walk_speed
+        transform.rotation = (
+            math.sin(walk_animation.walk_time) * walk_animation.walk_amplitude
+        )
+
+    else:
+        rigid_body.velocity = rigid_body.velocity.lerp(
+            Vec2(0, 0), rigid_body.deceleration * delta_time
+        )
+
+        transform.rotation = 0
+        walk_animation.walk_time = 0.0

@@ -12,15 +12,15 @@ wheels = [
 
 [[package]]
 name = "arepy"
-version = "0.1.4"
+version = "0.1.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "bitarray" },
     { name = "raylib" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b4/e9/90a7538ac48a81fe63b01e3556e672a7d59a785694459c72e66c4e7aaf49/arepy-0.1.4.tar.gz", hash = "sha256:61eb9498f0f8a880a33ef6b03ece3529e842963832f9d205c7135b4d418f5396", size = 30958 }
+sdist = { url = "https://files.pythonhosted.org/packages/ee/ba/fe86d28ca365cdbd0e2b73b813126a5351040bca563da546a42144184840/arepy-0.1.5.tar.gz", hash = "sha256:13cd947b5965a51331443043021084c3d87343d9114f14ab0a73e3a481b4d29b", size = 31417 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/dd/2a/c6cee6235c9bcbb5046b946f2cb6ced3d33af4737585ee8f83ecbe4c9849/arepy-0.1.4-py3-none-any.whl", hash = "sha256:e693cf8b3e71e406cf9453c50f0aae1ba4712b02405bca2c2031c1536889635b", size = 41855 },
+    { url = "https://files.pythonhosted.org/packages/a1/2f/796e219b9b114cb85a9f0ec3285cf0b283ccb488be1774daeae6ab30221e/arepy-0.1.5-py3-none-any.whl", hash = "sha256:ba132140bbf29511d4e360b5647199869ebcfaf6a782e5b80e626296ab75eab5", size = 42374 },
 ]
 
 [[package]]
@@ -97,7 +97,7 @@ imgui = [
 
 [package.metadata]
 requires-dist = [
-    { name = "arepy", specifier = "==0.1.4" },
+    { name = "arepy", specifier = "==0.1.5" },
     { name = "imgui-bundle", marker = "extra == 'imgui'", specifier = "==1.6.0" },
     { name = "moderngl", marker = "extra == 'imgui'", specifier = "==5.12.0" },
 ]
