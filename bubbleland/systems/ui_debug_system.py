@@ -9,7 +9,7 @@ from arepy.math import Vec2
 from imgui_bundle import ImVec2
 
 from bubbleland import commands, config
-from bubbleland.components import Pickable, Weapon
+from bubbleland.components import Pickable, PickUp, Weapon
 
 
 def ui_debug_system(
@@ -73,6 +73,11 @@ def show_spawn_window(engine: ArepyEngine, imgui: Imgui, weapons: Entities):
         commands.spawn_enemy(
             engine,
             Vec2(500, 500),
+        )
+    if imgui.button("Spawn ammo"):
+        commands.spawn_ammo(
+            engine,
+            Vec2(randint(0, config.RESOLUTION[0]), randint(0, config.RESOLUTION[1])),
         )
     imgui.separator()
     imgui.text(f"Weapons in scene: {len(weapons)}")

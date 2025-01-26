@@ -5,12 +5,14 @@ from arepy.ecs.query import Query, With
 from arepy.engine.display import Display
 from arepy.engine.input import Input
 
-from bubbleland.components import Collider, KeyboardControlled, Pickable
+from bubbleland.commands.spawn_ammo import increase_bullet_count
+from bubbleland.components import Collider, KeyboardControlled, Pickable, PickUp
 
 
 def collision_system(
     player_query: Query[Entities, With[Transform, Collider, KeyboardControlled]],
     pickup_query: Query[Entities, With[Transform, Collider, Pickable]],
+    ammo_query: Query[Entities, With[Transform, Collider, PickUp]],
     input: Input,
 ):
     """Detects collisions between the player and pickup entities."""
@@ -48,6 +50,16 @@ def collision_system(
         for weapon in pickup_query.get_entities()
         if weapon.get_component(Pickable).grabbed
     ]
+
+    for ammo in ammo_query.get_entities():
+        ammo_transform = ammo.get_component(Transform)
+        ammo_collider = ammo.get_component(Collider)
+        pick_up = ammo.get_component(PickUp)
+
+        distance = abs(player_transform.position - ammo_transform.position)
+        if distance < (player_collider.radius + ammo_collider.radius):
+            increase_bullet_count(current_player_weapon[0])
+            ammo.kill()
 
     for weapon in pickup_query.get_entities():
         pickup_transform = weapon.get_component(Transform)

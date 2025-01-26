@@ -33,7 +33,9 @@ def main():
     asset_loader.load_weapon_graphics(game, asset_store)
     asset_loader.load_bullet_graphics(game, asset_store)
     asset_loader.load_tilemap_graphics(game, asset_store)
+    asset_loader.load_item_graphics(game, asset_store)
     asset_loader.load_shoot_sounds(game, asset_store)
+
     # generate map
     commands.generate_map(game.renderer, game.get_asset_store())
 
