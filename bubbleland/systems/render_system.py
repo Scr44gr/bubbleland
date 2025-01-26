@@ -1,3 +1,4 @@
+import pyray as pr
 from arepy.asset_store import AssetStore
 from arepy.bundle.components import Camera2D, Sprite, Transform
 from arepy.ecs.query import Query, With
@@ -5,9 +6,64 @@ from arepy.ecs.registry import Entity
 from arepy.engine.renderer.renderer_2d import Color, Rect, Renderer2D
 
 from bubbleland import commands, config
-from bubbleland.components import Pickable, SimpleRectangle
+from bubbleland.components import KeyboardControlled, Pickable, SimpleRectangle, Weapon
 
 WHITE_COLOR = Color(255, 255, 255, 255)
+BLACK_COLOR = Color(0, 0, 0, 255)
+
+
+def render_ui_system(
+    player_query: Query[
+        Entity,
+        With[
+            Transform,
+            Sprite,
+        ],
+    ],
+    weapon_query: Query[
+        Entity,
+        With[
+            Transform,
+            Sprite,
+            Weapon,
+        ],
+    ],
+    renderer: Renderer2D,
+):
+    current_weapon_entity = [
+        weapon.get_component(Weapon)
+        for weapon in weapon_query.get_entities()
+        if weapon.get_component(Pickable).grabbed
+    ]
+
+    player = next(iter(player_query.get_entities()), None)
+    if player is None:
+        return
+
+    renderer.start_frame()
+    if current_weapon_entity:
+        render_weapon_ui(renderer, current_weapon_entity[0])
+    renderer.end_frame()
+
+
+def render_weapon_ui(renderer: Renderer2D, weapon_component: Weapon):
+    # draw at bottom rigth corner
+    renderer.draw_text(
+        f"Current weapon: {weapon_component.name}",
+        (20, pr.get_screen_height() - 50),
+        34,
+        color=WHITE_COLOR,
+    )
+    renderer.draw_text(
+        f"Ammo: {weapon_component.current_bullet_count}/{weapon_component.max_bullet_count}",
+        (20, pr.get_screen_height() - 90),
+        34,
+        color=(
+            WHITE_COLOR
+            if weapon_component.current_bullet_count > 0
+            else Color(255, 0, 0, 255)
+        ),
+    )
 
 
 def render_system(

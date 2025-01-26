@@ -21,7 +21,7 @@ def spawn_ak48(engine: ArepyEngine, position: Vec2) -> Entity:
         .with_component(Sprite(asset_id="ak48", src_rect=(0, 0, 34, 12), z_index=2))
         .with_component(
             Weapon(
-                name="ak48",
+                name="AK-48",
                 fire_rate=0.1,
                 cooldown=1.0,
                 shake_intensity=1.5,
@@ -56,7 +56,7 @@ def spawn_shotgun(engine: ArepyEngine, position: Vec2) -> Entity:
         .with_component(Sprite(asset_id="shotgun", src_rect=(0, 0, 34, 9), z_index=2))
         .with_component(
             Weapon(
-                name="shotgun",
+                name="Shotgun",
                 fire_rate=0.5,
                 cooldown=1.0,
                 shake_intensity=1.7,
@@ -91,7 +91,7 @@ def spawn_sheriff(engine: ArepyEngine, position: Vec2) -> Entity:
         .with_component(Sprite(asset_id="sheriff", src_rect=(0, 0, 20, 11), z_index=2))
         .with_component(
             Weapon(
-                name="sheriff",
+                name="Sheriff",
                 fire_rate=0.3,
                 cooldown=1.0,
                 shake_intensity=1.2,
