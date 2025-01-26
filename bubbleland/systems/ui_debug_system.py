@@ -79,6 +79,11 @@ def show_spawn_window(engine: ArepyEngine, imgui: Imgui, weapons: Entities):
             engine,
             Vec2(randint(0, config.RESOLUTION[0]), randint(0, config.RESOLUTION[1])),
         )
+    if imgui.button("Spawn health"):
+        commands.spawn_health(
+            engine,
+            Vec2(randint(0, config.RESOLUTION[0]), randint(0, config.RESOLUTION[1])),
+        )
     imgui.separator()
     imgui.text(f"Weapons in scene: {len(weapons)}")
     imgui.text(

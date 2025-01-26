@@ -73,7 +73,11 @@ def load_item_graphics(game: ArepyEngine, asset_store: AssetStore):
         "ammo",
         f"{config.ASSET_PATH}/sprites/items/ammo.png",
     )
-
+    asset_store.load_texture(
+        game.renderer,
+        "health",
+        f"{config.ASSET_PATH}/sprites/items/health.png",
+    )
 
 def load_tilemap_graphics(game: ArepyEngine, asset_store: AssetStore):
     asset_store.load_texture(

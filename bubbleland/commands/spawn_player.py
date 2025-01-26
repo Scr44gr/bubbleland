@@ -3,7 +3,7 @@ from arepy.bundle.components import Camera2D, RigidBody2D, Sprite, Transform
 from arepy.ecs import Entity
 from arepy.math import Vec2
 
-from bubbleland.components import Collider, KeyboardControlled, WalkAnimation
+from bubbleland.components import Collider, Health, KeyboardControlled, WalkAnimation
 
 
 def spawn_player(engine: ArepyEngine, position: Vec2) -> Entity:
@@ -20,6 +20,7 @@ def spawn_player(engine: ArepyEngine, position: Vec2) -> Entity:
         .with_component(
             Sprite(asset_id="player_idle", src_rect=(0, 0, 32, 32), z_index=1)
         )
+        .with_component(Health(max_health=100, current_health=50))
         .with_component(KeyboardControlled())
         .with_component(WalkAnimation())
         .with_component(Collider(width=32, height=32, radius=16))

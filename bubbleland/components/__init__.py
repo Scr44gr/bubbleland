@@ -40,7 +40,7 @@ class Pickable(Component):
 class PickUp(Component):
     def __init__(self, name: str = "default"):
         self.name = name
-        self.message = f"+24 Bullets"
+        self.message = f"+24 {name}"
 
 
 class SimpleRectangle(Component):

@@ -1,6 +1,7 @@
 from .generate_map import generate_map, render_generated_map
 from .spawn_ammo import spawn_ammo
 from .spawn_enemy import spawn_enemy
+from .spawn_health import spawn_health
 from .spawn_player import spawn_player
 from .spawn_projectile import shoot_projectile
 from .spawn_weapon import spawn_ak48, spawn_sheriff, spawn_shotgun
@@ -13,6 +14,7 @@ __all__ = [
     "spawn_weapon",
     "trigger_camera_shake",
     "spawn_ammo",
+    "spawn_health",
     "spawn_ak48",
     "spawn_shotgun",
     "spawn_sheriff",
