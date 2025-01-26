@@ -39,8 +39,8 @@ def main():
     # generate map
     commands.generate_map(game.renderer, game.get_asset_store())
 
-    game.add_system(SystemPipeline.RENDER, render_ui_system)
     game.add_system(SystemPipeline.RENDER, render_system)
+    game.add_system(SystemPipeline.RENDER, render_ui_system)
     game.add_system(SystemPipeline.INPUT, keyboard_control_system)
     game.add_system(SystemPipeline.UPDATE, movement_system)
     game.add_system(SystemPipeline.UPDATE, collision_system)

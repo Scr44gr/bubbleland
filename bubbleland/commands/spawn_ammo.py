@@ -37,4 +37,3 @@ def increase_bullet_count(weapon_entity: Entity):
             weapon_component.current_bullet_count + 24,
             weapon_component.max_bullet_count,
         )
-        print(f"Bullet count increased to {weapon_component.current_bullet_count}")
