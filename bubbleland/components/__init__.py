@@ -74,8 +74,8 @@ class Weapon(Component):
     def __init__(
         self,
         name: str = "default",
-        fire_rate: float = 0.5,
-        cooldown: float = 1.0,
+        fire_rate: float = 0.2,
+        cooldown: float = 0.0,
     ):
         self.name = name
         self.fire_rate = fire_rate

@@ -22,10 +22,10 @@ def collision_system(
         player_entity.get_component(KeyboardControlled).interact_key
     )
 
-    for pickup_entity in pickup_query.get_entities():
-        pickup_transform = pickup_entity.get_component(Transform)
-        pickup_collider = pickup_entity.get_component(Collider)
-        pickup = pickup_entity.get_component(Pickable)
+    for weapon in pickup_query.get_entities():
+        pickup_transform = weapon.get_component(Transform)
+        pickup_collider = weapon.get_component(Collider)
+        pickup = weapon.get_component(Pickable)
 
         if e_was_pressed and pickup.can_be_grabbed:
             pickup.grabbed = True

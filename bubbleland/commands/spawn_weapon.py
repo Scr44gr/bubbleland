@@ -24,7 +24,7 @@ def spawn_weapon(engine: ArepyEngine, mouse_pos: Vec2) -> Entity:
         .with_component(
             SimpleRectangle(width=24, height=8, color=Color(255, 0, 0, 255))
         )
-        .with_component(Weapon(name="Weapon", fire_rate=0.5, cooldown=1.0))
+        .with_component(Weapon(name="Weapon", fire_rate=0.2, cooldown=1.0))
         .with_component(
             Pickable(
                 name="Gun",

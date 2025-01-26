@@ -4,6 +4,7 @@ from arepy.math import Vec2
 
 from bubbleland import commands, config
 from bubbleland.systems import (
+    camera_shaking_system,
     collision_system,
     keyboard_control_system,
     movement_system,
@@ -33,6 +34,8 @@ def main():
     game.add_system(SystemPipeline.INPUT, keyboard_control_system)
     game.add_system(SystemPipeline.UPDATE, movement_system)
     game.add_system(SystemPipeline.UPDATE, collision_system)
+    game.add_system(SystemPipeline.UPDATE, camera_shaking_system)
+
     game.add_system(
         SystemPipeline.UPDATE,
         weapon_follow_player_system,

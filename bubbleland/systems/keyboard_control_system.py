@@ -1,29 +1,75 @@
 import math
+from time import time
 
-from arepy.bundle.components import RigidBody2D, Transform
-from arepy.ecs.entities import Entities
+from arepy import ArepyEngine
+from arepy.bundle.components import Camera2D, RigidBody2D, Transform
+from arepy.ecs.entities import Entities, Entity
 from arepy.ecs.query import Query, With
-from arepy.engine.input import Input
+from arepy.engine.input import Input, MouseButton
 from arepy.engine.renderer.renderer_2d import Renderer2D
 from arepy.math import Vec2
 
-from bubbleland.components import KeyboardControlled, WalkAnimation
+from bubbleland import commands
+from bubbleland.components import KeyboardControlled, Pickable, WalkAnimation, Weapon
 
 
 def keyboard_control_system(
     query: Query[
         Entities, With[RigidBody2D, Transform, KeyboardControlled, WalkAnimation]
     ],
+    weapon_query: Query[Entities, With[Weapon, Pickable]],
     input: Input,
     renderer: Renderer2D,
+    engine: ArepyEngine,
 ):
-    """Moves entities based on keyboard input."""
+    """Handles player movement and shooting input."""
+
     delta_time = renderer.get_delta_time()
     player = next(iter(query.get_entities()), None)
+    weapon = [
+        entity
+        for entity in weapon_query.get_entities()
+        if entity.get_component(Pickable).grabbed
+    ]
     if player is None:
         return
 
+    if weapon:
+        handle_player_shooting_input(player, weapon[0], engine, input)
+
     handle_player_movement_input(player, input, delta_time)
+
+
+def handle_player_shooting_input(
+    player: Entity, weapon: Entity, engine: ArepyEngine, input: Input
+):
+    transform = weapon.get_component(Transform)
+
+    if input.is_mouse_button_down(MouseButton.LEFT):
+        current_time = time()
+        weapon_component = weapon.get_component(Weapon)
+        if (
+            current_time - weapon.get_component(Weapon).cooldown
+            <= weapon_component.fire_rate
+        ):
+            return
+
+        mouse_screen_pos = input.get_mouse_position()
+        mouse_world_pos = engine.renderer.screen_to_world(
+            mouse_screen_pos, player.get_component(Camera2D)
+        )
+        direction = (
+            Vec2(mouse_world_pos[0], mouse_world_pos[1]) - transform.position
+        ).normalize()
+
+        commands.trigger_camera_shake(player, 1.5, 0.1)
+        commands.shoot_projectile(
+            engine,
+            transform.position,
+            direction=direction,
+            angle=weapon.get_component(Transform).rotation,
+        )
+        weapon_component.cooldown = current_time
 
 
 def handle_player_movement_input(entity, input, delta_time):

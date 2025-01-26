@@ -1,3 +1,4 @@
+from .camera_shaking_system import camera_shaking_system
 from .collision_system import collision_system
 from .keyboard_control_system import keyboard_control_system
 from .movement_system import movement_system
@@ -12,4 +13,5 @@ __all__ = [
     "ui_debug_system",
     "collision_system",
     "weapon_follow_player_system",
+    "camera_shaking_system",
 ]
