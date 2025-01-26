@@ -17,7 +17,11 @@ def spawn_health(engine: ArepyEngine, position: Vec2) -> Entity:
                 rotation=0.0,
             )
         )
-        .with_component(RigidBody2D())
+        .with_component(
+            RigidBody2D(
+                velocity=Vec2(0, 0),
+            )
+        )
         .with_component(Sprite(asset_id="health", src_rect=(0, 0, 16, 16), z_index=2))
         .with_component(
             PickUp(
@@ -37,4 +41,3 @@ def increase_health(player_entity: Entity):
         player_component.current_health = min(
             player_component.current_health + 25, player_component.max_health
         )
-        print(f"Healed +25 HP, current health: {player_component.current_health}")

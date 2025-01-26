@@ -16,7 +16,11 @@ def spawn_enemy(engine: ArepyEngine, position: Vec2) -> Entity:
                 rotation=0.0,
             )
         )
-        .with_component(RigidBody2D())
+        .with_component(
+            RigidBody2D(
+                velocity=Vec2(0, 0),
+            )
+        )
         .with_component(
             Sprite(asset_id="enemy_idle", src_rect=(0, 0, 32, 32), z_index=2)
         )

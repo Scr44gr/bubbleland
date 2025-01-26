@@ -26,10 +26,20 @@ def enemy_ai_system(
         if not enemy_entity.has_component(EnemyAI):
             continue
 
-        print("Enemy AI system")
-
         enemy_transform = enemy_entity.get_component(Transform)
         enemy_rigid_body = enemy_entity.get_component(RigidBody2D)
         enemy_ai = enemy_entity.get_component(EnemyAI)
 
         distance = abs(enemy_transform.position - player_transform.position)
+
+        if distance < enemy_ai.attack_range:
+            ...
+        if enemy_transform.position.x < player_transform.position.x:
+            enemy_rigid_body.velocity.x = enemy_ai.walk_speed
+        else:
+            enemy_rigid_body.velocity.x = -enemy_ai.walk_speed
+
+        if enemy_transform.position.y < player_transform.position.y:
+            enemy_rigid_body.velocity.y = enemy_ai.walk_speed
+        else:
+            enemy_rigid_body.velocity.y = -enemy_ai.walk_speed

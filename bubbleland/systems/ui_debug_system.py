@@ -72,7 +72,7 @@ def show_spawn_window(engine: ArepyEngine, imgui: Imgui, weapons: Entities):
     if imgui.button("Spawn a enemy"):
         commands.spawn_enemy(
             engine,
-            Vec2(500, 500),
+            Vec2(randint(0, config.RESOLUTION[0]), randint(0, config.RESOLUTION[1])),
         )
     if imgui.button("Spawn ammo"):
         commands.spawn_ammo(
