@@ -4,6 +4,12 @@ from arepy.engine.renderer import Color
 from arepy.math import Vec2
 
 
+class Health(Component):
+    def __init__(self, max_health: int = 100, current_health: int = 100):
+        self.max_health = max_health
+        self.current_health = current_health
+
+
 class Collider(Component):
     def __init__(self, width: int, height: int, radius: int = 0):
         self.width = width
@@ -79,6 +85,8 @@ class Weapon(Component):
         shake_intensity: float = 1.5,
         shake_duration: float = 0.1,
         dispersion_angle: float = 0.0,
+        current_bullet_count: int = 0,
+        max_bullet_count: int = 0,
     ):
         self.name = name
         self.fire_rate = fire_rate
@@ -87,3 +95,5 @@ class Weapon(Component):
         self.shake_duration = shake_duration
         self.dispersion_angle = dispersion_angle
         self.direction = Vec2(0, 0)
+        self.current_bullet_count = current_bullet_count
+        self.max_bullet_count = max_bullet_count

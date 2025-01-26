@@ -54,7 +54,20 @@ def handle_player_shooting_input(
     if input.is_mouse_button_released(MouseButton.LEFT):
         last_shoot_direction = Vec2(0, 0)
 
-    if input.is_mouse_button_down(MouseButton.LEFT):
+    # If the player tries to shoot without ammo, play a sound of no ammo
+    if (
+        input.is_mouse_button_down(MouseButton.LEFT)
+        and weapon_component.current_bullet_count == 0
+    ):
+        no_ammo_sound = engine.get_asset_store().sounds.get("no_ammo")
+        if no_ammo_sound:
+            engine.audio_device.play_sound(no_ammo_sound)
+        return
+
+    if (
+        input.is_mouse_button_down(MouseButton.LEFT)
+        and weapon_component.current_bullet_count > 0
+    ):
         current_time = time()
         if current_time - weapon_component.cooldown <= weapon_component.fire_rate:
             return
@@ -90,6 +103,7 @@ def handle_player_shooting_input(
         if shoot_sound:
             engine.audio_device.play_sound(shoot_sound)
         weapon_component.cooldown = current_time
+        weapon_component.current_bullet_count -= 1
 
 
 def handle_player_movement_input(entity, input, delta_time):

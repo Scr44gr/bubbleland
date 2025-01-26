@@ -76,14 +76,17 @@ def weapon_follow_player_system(
                 )
             ).normalize()
             if not input.is_mouse_button_down(MouseButton.LEFT)
+            or weapon_component.current_bullet_count == 0
             else weapon_component.direction
         )
         direction = weapon_component.direction
 
         angle = math.atan2(direction.y, direction.x) + math.radians(ROTATION_OFFSET)
 
-        if abs(player_rigid_body.velocity) > 8 and input.is_mouse_button_down(
-            MouseButton.LEFT
+        if (
+            abs(player_rigid_body.velocity) > 8
+            and input.is_mouse_button_down(MouseButton.LEFT)
+            and weapon_component.current_bullet_count > 0
         ):
             max_dispersion_angle = math.radians(weapon_component.dispersion_angle) / 2
             random_angle = random.uniform(-max_dispersion_angle, max_dispersion_angle)

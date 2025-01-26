@@ -95,3 +95,8 @@ def load_shoot_sounds(game: ArepyEngine, asset_store: AssetStore):
         "shoot",
         f"{config.ASSET_PATH}/sounds/simple_shoot.ogg",
     )
+    asset_store.load_sound(
+        game.audio_device,
+        "no_ammo",
+        f"{config.ASSET_PATH}/sounds/no_ammo.ogg",
+    )
