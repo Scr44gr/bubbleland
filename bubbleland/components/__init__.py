@@ -76,7 +76,11 @@ class Weapon(Component):
         name: str = "default",
         fire_rate: float = 0.2,
         cooldown: float = 0.0,
+        shake_intensity: float = 1.5,
+        shake_duration: float = 0.1,
     ):
         self.name = name
         self.fire_rate = fire_rate
         self.cooldown = cooldown
+        self.shake_intensity = shake_intensity
+        self.shake_duration = shake_duration

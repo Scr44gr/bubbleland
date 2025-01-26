@@ -22,6 +22,17 @@ def collision_system(
         player_entity.get_component(KeyboardControlled).interact_key
     )
 
+    # Hardcoded boundaries
+    if player_transform.position.x < 32:
+        player_transform.position.x = 32
+    if player_transform.position.y < 32:
+        player_transform.position.y = 32
+
+    if player_transform.position.x >= 1500:
+        player_transform.position.x = 1500
+    if player_transform.position.y >= 900:
+        player_transform.position.y = 900
+
     for weapon in pickup_query.get_entities():
         pickup_transform = weapon.get_component(Transform)
         pickup_collider = weapon.get_component(Collider)

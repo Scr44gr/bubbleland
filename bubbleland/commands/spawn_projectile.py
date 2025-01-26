@@ -26,9 +26,10 @@ def shoot_projectile(
                 acceleration=250,
             )
         )
-        .with_component(Sprite(asset_id="bunny", src_rect=(0, 0, 32, 32), z_index=0))
-        .with_component(SimpleRectangle(width=4, height=4, color=Color(255, 0, 0, 255)))
-        .with_component(Collider(width=8, height=8, radius=8))
+        .with_component(
+            Sprite(asset_id="yellow_bullet", src_rect=(0, 0, 4, 4), z_index=0)
+        )
+        .with_component(Collider(width=4, height=4, radius=4))
         .with_component(Projectile(direction=direction, life_time=2))
     ).build()
     return entity

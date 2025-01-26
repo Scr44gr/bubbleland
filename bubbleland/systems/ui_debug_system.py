@@ -48,15 +48,26 @@ def show_spawn_window(engine: ArepyEngine, imgui: Imgui, weapons: Entities):
 
     imgui.begin("Spawn", True)
     imgui.text("Spawn in random position")
-    if imgui.button("Spawn a weapon"):
-        commands.spawn_weapon(
+    if imgui.button("Spawn a ak48"):
+        commands.spawn_ak48(
+            engine,
+            Vec2(randint(0, config.RESOLUTION[0]), randint(0, config.RESOLUTION[1])),
+        )
+    if imgui.button("Spawn a shotgun"):
+        commands.spawn_shotgun(
+            engine,
+            Vec2(randint(0, config.RESOLUTION[0]), randint(0, config.RESOLUTION[1])),
+        )
+
+    if imgui.button("Spawn a sheriff"):
+        commands.spawn_sheriff(
             engine,
             Vec2(randint(0, config.RESOLUTION[0]), randint(0, config.RESOLUTION[1])),
         )
     if imgui.button("Spawn a player"):
         commands.spawn_player(
             engine,
-            Vec2(randint(0, config.RESOLUTION[0]), randint(0, config.RESOLUTION[1])),
+            Vec2(500, 500),
         )
     imgui.separator()
     imgui.text(f"Weapons in scene: {len(weapons)}")

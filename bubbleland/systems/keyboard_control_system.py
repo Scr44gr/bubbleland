@@ -2,7 +2,7 @@ import math
 from time import time
 
 from arepy import ArepyEngine
-from arepy.bundle.components import Camera2D, RigidBody2D, Transform
+from arepy.bundle.components import Camera2D, RigidBody2D, Sprite, Transform
 from arepy.ecs.entities import Entities, Entity
 from arepy.ecs.query import Query, With
 from arepy.engine.input import Input, MouseButton
@@ -62,13 +62,18 @@ def handle_player_shooting_input(
             Vec2(mouse_world_pos[0], mouse_world_pos[1]) - transform.position
         ).normalize()
 
-        commands.trigger_camera_shake(player, 1.5, 0.1)
+        commands.trigger_camera_shake(
+            player, weapon_component.shake_intensity, weapon_component.shake_duration
+        )
         commands.shoot_projectile(
             engine,
             transform.position,
             direction=direction,
-            angle=weapon.get_component(Transform).rotation,
+            angle=transform.rotation,
         )
+        shoot_sound = engine.get_asset_store().sounds.get("shoot")
+        if shoot_sound:
+            engine.audio_device.play_sound(shoot_sound)
         weapon_component.cooldown = current_time
 
 

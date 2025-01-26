@@ -1,8 +1,7 @@
 from arepy import ArepyEngine
 from arepy.ecs.systems import SystemPipeline
-from arepy.math import Vec2
 
-from bubbleland import commands, config
+from bubbleland import assets_loader, commands, config
 from bubbleland.systems import (
     camera_shaking_system,
     collision_system,
@@ -26,9 +25,14 @@ def main():
 
     # load assets
     asset_store = game.get_asset_store()
-    asset_store.load_texture(game.renderer, "bunny", f"{config.ASSET_PATH}/bunny.png")
-    # Spawn a weapon in a random position
-    # commands.spawn_weapon(game, Vec2(512, 255))
+    assets_loader.load_player_graphics(game, asset_store)
+    assets_loader.load_enemy_graphics(game, asset_store)
+    assets_loader.load_weapon_graphics(game, asset_store)
+    assets_loader.load_bullet_graphics(game, asset_store)
+    assets_loader.load_tilemap_graphics(game, asset_store)
+    assets_loader.load_shoot_sounds(game, asset_store)
+    # generate map
+    commands.generate_map(game.renderer, game.get_asset_store())
 
     game.add_system(SystemPipeline.RENDER, render_system)
     game.add_system(SystemPipeline.INPUT, keyboard_control_system)

@@ -4,8 +4,8 @@ from arepy.ecs.query import Query, With
 from arepy.ecs.registry import Entity
 from arepy.engine.renderer.renderer_2d import Color, Rect, Renderer2D
 
-from bubbleland import __version__, config
-from bubbleland.components import Pickable, SimpleRectangle, Weapon
+from bubbleland import commands, config
+from bubbleland.components import Pickable, SimpleRectangle
 
 WHITE_COLOR = Color(255, 255, 255, 255)
 
@@ -25,15 +25,20 @@ def render_system(
         camera_component.target = camera.get_component(Transform).position / 2
         renderer.update_camera(camera.get_component(Camera2D))
         renderer.begin_camera_mode(camera.get_component(Camera2D))
+    commands.render_generated_map(renderer, asset_store)
 
-    for entity in query.get_entities():
+    ordered_entities = sorted(
+        query.get_entities(), key=lambda entity: entity.get_component(Sprite).z_index
+    )
+
+    for entity in ordered_entities:
         transform = entity.get_component(Transform)
         sprite = entity.get_component(Sprite)
 
         if entity.has_component(Pickable):
             pickable_component = entity.get_component(Pickable)
             if pickable_component.can_be_grabbed and not pickable_component.grabbed:
-                draw_pickable_text(pickable_component, transform, renderer)
+                draw_pickable_text(pickable_component, transform, renderer, 14)
 
         # if the entity has a SimpleRectangle component, draw a rectangle
         if entity.has_component(SimpleRectangle):
@@ -47,16 +52,38 @@ def render_system(
     renderer.end_frame()
 
 
+import pyray
+
+
 def draw_pickable_text(
     pickble_component: Pickable,
     transform_component: Transform,
     renderer: Renderer2D,
+    font_size: int,
+    font_spacing: float = 1.0,
 ):
+    text_size: pyray.Vector2 = pyray.measure_text_ex(
+        pyray.get_font_default(), pickble_component.message, font_size, font_spacing
+    )
+
+    renderer.draw_rectangle(
+        Rect(
+            transform_component.position.x,
+            transform_component.position.y - text_size.y - 16,
+            int(text_size.x),
+            int(text_size.y),
+        ),
+        color=Color(0, 0, 0, 200),
+    )
+
     renderer.draw_text(
         pickble_component.message,
-        (transform_component.position.x, transform_component.position.y - 32),
-        24,
-        color=Color(0, 0, 0, 255),
+        (
+            transform_component.position.x,
+            transform_component.position.y - text_size.y - 16,
+        ),
+        font_size,
+        color=config.WHITE_COLOR,
     )
 
 
