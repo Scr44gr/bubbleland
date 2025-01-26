@@ -18,7 +18,7 @@ def spawn_ak48(engine: ArepyEngine, position: Vec2) -> Entity:
             )
         )
         .with_component(RigidBody2D())
-        .with_component(Sprite(asset_id="ak48", src_rect=(0, 0, 34, -12), z_index=2))
+        .with_component(Sprite(asset_id="ak48", src_rect=(0, 0, 34, 12), z_index=2))
         .with_component(
             Weapon(
                 name="ak48",
@@ -53,7 +53,7 @@ def spawn_shotgun(engine: ArepyEngine, position: Vec2) -> Entity:
             )
         )
         .with_component(RigidBody2D())
-        .with_component(Sprite(asset_id="shotgun", src_rect=(0, 0, 34, -9), z_index=2))
+        .with_component(Sprite(asset_id="shotgun", src_rect=(0, 0, 34, 9), z_index=2))
         .with_component(
             Weapon(
                 name="shotgun",
@@ -88,7 +88,7 @@ def spawn_sheriff(engine: ArepyEngine, position: Vec2) -> Entity:
             )
         )
         .with_component(RigidBody2D())
-        .with_component(Sprite(asset_id="sheriff", src_rect=(0, 0, 20, -11), z_index=2))
+        .with_component(Sprite(asset_id="sheriff", src_rect=(0, 0, 20, 11), z_index=2))
         .with_component(
             Weapon(
                 name="sheriff",

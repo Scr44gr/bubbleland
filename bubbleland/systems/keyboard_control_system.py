@@ -56,7 +56,7 @@ def handle_player_shooting_input(
 
     # If the player tries to shoot without ammo, play a sound of no ammo
     if (
-        input.is_mouse_button_down(MouseButton.LEFT)
+        input.is_mouse_button_pressed(MouseButton.LEFT)
         and weapon_component.current_bullet_count == 0
     ):
         no_ammo_sound = engine.get_asset_store().sounds.get("no_ammo")

@@ -81,7 +81,7 @@ def weapon_follow_player_system(
         )
         direction = weapon_component.direction
 
-        angle = math.atan2(direction.y, direction.x) + math.radians(ROTATION_OFFSET)
+        angle = math.atan2(direction.y, direction.x)
 
         if (
             abs(player_rigid_body.velocity) > 8

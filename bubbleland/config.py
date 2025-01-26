@@ -1,3 +1,4 @@
+import pyray as pr
 from arepy.engine.renderer import Color
 
 WINDOW_TITLE = "Bubbleland"
