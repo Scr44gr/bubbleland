@@ -12,40 +12,6 @@ WHITE_COLOR = Color(255, 255, 255, 255)
 BLACK_COLOR = Color(0, 0, 0, 255)
 
 
-def render_ui_system(
-    player_query: Query[
-        Entity,
-        With[
-            Transform,
-            Sprite,
-        ],
-    ],
-    weapon_query: Query[
-        Entity,
-        With[
-            Transform,
-            Sprite,
-            Weapon,
-        ],
-    ],
-    renderer: Renderer2D,
-):
-    current_weapon_entity = [
-        weapon.get_component(Weapon)
-        for weapon in weapon_query.get_entities()
-        if weapon.get_component(Pickable).grabbed
-    ]
-
-    player = next(iter(player_query.get_entities()), None)
-    if player is None:
-        return
-
-    renderer.start_frame()
-    if current_weapon_entity:
-        render_weapon_ui(renderer, current_weapon_entity[0])
-    renderer.end_frame()
-
-
 def render_weapon_ui(renderer: Renderer2D, weapon_component: Weapon):
     # draw at bottom rigth corner
     renderer.draw_text(
@@ -86,6 +52,11 @@ def render_system(
     ordered_entities = sorted(
         query.get_entities(), key=lambda entity: entity.get_component(Sprite).z_index
     )
+    active_weapons = [
+        entity
+        for entity in ordered_entities
+        if entity.has_component(Pickable) and entity.get_component(Pickable).grabbed
+    ]
 
     for entity in ordered_entities:
         transform = entity.get_component(Transform)
@@ -105,6 +76,8 @@ def render_system(
         draw_sprite(sprite, transform, renderer, asset_store)
     if camera:
         renderer.end_camera_mode()
+    if active_weapons:
+        render_weapon_ui(renderer, active_weapons[0].get_component(Weapon))
     renderer.end_frame()
 
 

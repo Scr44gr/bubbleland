@@ -10,7 +10,6 @@ from bubbleland.systems import (
     keyboard_control_system,
     movement_system,
     render_system,
-    render_ui_system,
     ui_debug_system,
     weapon_follow_player_system,
 )
@@ -40,7 +39,6 @@ def main():
     commands.generate_map(game.renderer, game.get_asset_store())
 
     game.add_system(SystemPipeline.RENDER, render_system)
-    game.add_system(SystemPipeline.RENDER, render_ui_system)
     game.add_system(SystemPipeline.INPUT, keyboard_control_system)
     game.add_system(SystemPipeline.UPDATE, movement_system)
     game.add_system(SystemPipeline.UPDATE, collision_system)
