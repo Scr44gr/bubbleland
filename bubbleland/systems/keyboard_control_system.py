@@ -1,8 +1,9 @@
 import math
+import random
 from time import time
 
 from arepy import ArepyEngine
-from arepy.bundle.components import Camera2D, RigidBody2D, Sprite, Transform
+from arepy.bundle.components import Camera2D, RigidBody2D, Transform
 from arepy.ecs.entities import Entities, Entity
 from arepy.ecs.query import Query, With
 from arepy.engine.input import Input, MouseButton
@@ -11,6 +12,8 @@ from arepy.math import Vec2
 
 from bubbleland import commands
 from bubbleland.components import KeyboardControlled, Pickable, WalkAnimation, Weapon
+
+last_shoot_direction = Vec2(0, 0)
 
 
 def keyboard_control_system(
@@ -43,24 +46,36 @@ def keyboard_control_system(
 def handle_player_shooting_input(
     player: Entity, weapon: Entity, engine: ArepyEngine, input: Input
 ):
+    global last_shoot_direction
     transform = weapon.get_component(Transform)
+    rigid_body = player.get_component(RigidBody2D)
+    weapon_component = weapon.get_component(Weapon)
+
+    if input.is_mouse_button_released(MouseButton.LEFT):
+        last_shoot_direction = Vec2(0, 0)
 
     if input.is_mouse_button_down(MouseButton.LEFT):
         current_time = time()
-        weapon_component = weapon.get_component(Weapon)
-        if (
-            current_time - weapon.get_component(Weapon).cooldown
-            <= weapon_component.fire_rate
-        ):
+        if current_time - weapon_component.cooldown <= weapon_component.fire_rate:
             return
 
-        mouse_screen_pos = input.get_mouse_position()
-        mouse_world_pos = engine.renderer.screen_to_world(
-            mouse_screen_pos, player.get_component(Camera2D)
+        if last_shoot_direction == Vec2(0, 0):
+            mouse_screen_pos = input.get_mouse_position()
+            mouse_world_pos = engine.renderer.screen_to_world(
+                mouse_screen_pos, player.get_component(Camera2D)
+            )
+            last_shoot_direction = (
+                Vec2(mouse_world_pos[0], mouse_world_pos[1]) - transform.position
+            ).normalize()
+
+        player_speed = abs(rigid_body.velocity)
+        max_dispersion_angle = math.radians(weapon_component.dispersion_angle)
+        dispersion_angle = max_dispersion_angle * (
+            player_speed / rigid_body.max_velocity
         )
-        direction = (
-            Vec2(mouse_world_pos[0], mouse_world_pos[1]) - transform.position
-        ).normalize()
+
+        random_angle = random.uniform(-dispersion_angle, dispersion_angle)
+        direction = last_shoot_direction.rotate(random_angle)
 
         commands.trigger_camera_shake(
             player, weapon_component.shake_intensity, weapon_component.shake_duration

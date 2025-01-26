@@ -26,6 +26,7 @@ def spawn_ak48(engine: ArepyEngine, position: Vec2) -> Entity:
                 cooldown=1.0,
                 shake_intensity=1.5,
                 shake_duration=0.1,
+                dispersion_angle=25,
             )
         )
         .with_component(
@@ -58,6 +59,7 @@ def spawn_shotgun(engine: ArepyEngine, position: Vec2) -> Entity:
                 cooldown=1.0,
                 shake_intensity=1.7,
                 shake_duration=0.1,
+                dispersion_angle=15,
             )
         )
         .with_component(
@@ -90,6 +92,7 @@ def spawn_sheriff(engine: ArepyEngine, position: Vec2) -> Entity:
                 cooldown=1.0,
                 shake_intensity=1.2,
                 shake_duration=0.1,
+                dispersion_angle=12.5,
             )
         )
         .with_component(
