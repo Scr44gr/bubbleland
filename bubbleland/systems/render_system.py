@@ -1,5 +1,5 @@
 from arepy.asset_store import AssetStore
-from arepy.bundle.components import Sprite, Transform
+from arepy.bundle.components import Camera2D, Sprite, Transform
 from arepy.ecs.query import Query, With
 from arepy.ecs.registry import Entity
 from arepy.engine.renderer.renderer_2d import Color, Rect, Renderer2D
@@ -12,17 +12,24 @@ WHITE_COLOR = Color(255, 255, 255, 255)
 
 def render_system(
     query: Query[Entity, With[Transform, Sprite]],
+    camera_query: Query[Entity, With[Camera2D]],
     renderer: Renderer2D,
     asset_store: AssetStore,
 ):
+    camera = next(iter(camera_query.get_entities()), None)
+
     renderer.start_frame()
     renderer.clear(color=config.CLEAR_COLOR)
+    if camera:
+        camera_component = camera.get_component(Camera2D)
+        camera_component.target = camera.get_component(Transform).position / 2
+        renderer.update_camera(camera.get_component(Camera2D))
+        renderer.begin_camera_mode(camera.get_component(Camera2D))
 
     for entity in query.get_entities():
         transform = entity.get_component(Transform)
-        position = transform.position
         sprite = entity.get_component(Sprite)
-        # if entity has Pickable component and can be grabbed
+
         if entity.has_component(Pickable):
             pickable_component = entity.get_component(Pickable)
             if pickable_component.can_be_grabbed and not pickable_component.grabbed:
@@ -35,6 +42,8 @@ def render_system(
             continue
 
         draw_sprite(sprite, transform, renderer, asset_store)
+    if camera:
+        renderer.end_camera_mode()
     renderer.end_frame()
 
 
