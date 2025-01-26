@@ -9,6 +9,8 @@ from bubbleland.systems import (
     enemy_ai_system,
     keyboard_control_system,
     movement_system,
+    pickeable_system,
+    recolectable_system,
     render_system,
     ui_debug_system,
     weapon_follow_player_system,
@@ -45,6 +47,8 @@ def main():
     game.add_system(SystemPipeline.UPDATE, camera_shaking_system)
     game.add_system(SystemPipeline.UPDATE, bullet_collision_system)
     game.add_system(SystemPipeline.UPDATE, enemy_ai_system)
+    game.add_system(SystemPipeline.UPDATE, pickeable_system)
+    game.add_system(SystemPipeline.UPDATE, recolectable_system)
 
     game.add_system(
         SystemPipeline.UPDATE,

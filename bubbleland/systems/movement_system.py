@@ -13,10 +13,12 @@ def movement_system(
     delta_time = renderer.get_delta_time()
     entities = query.get_entities()
     for entity in entities:
+        if entity.has_component(Weapon):
+            continue
         transform = entity.get_component(Transform)
-        velocity = entity.get_component(RigidBody2D).velocity
+        rigidbody = entity.get_component(RigidBody2D)
 
-        transform.position += velocity * delta_time
+        transform.position += rigidbody.velocity * delta_time
 
         if entity.has_component(Projectile):
             projectile = entity.get_component(Projectile)
