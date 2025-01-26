@@ -27,6 +27,12 @@ class Pickable(Component):
         self.message = f"Press E to pick up {name}"
 
 
+class PickUp(Component):
+    def __init__(self, name: str = "default"):
+        self.name = name
+        self.message = f"+24 Bullets"
+
+
 class SimpleRectangle(Component):
     def __init__(self, width: int, height: int, color: Color = Color(10, 10, 10, 255)):
         self.width = width

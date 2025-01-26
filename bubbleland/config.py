@@ -3,7 +3,7 @@ from arepy.engine.renderer import Color
 
 WINDOW_TITLE = "Bubbleland"
 DEBUG = False
-RESOLUTION = (1920, 1080)
+RESOLUTION = (1600, 900)
 ALLOW_IMGUI_DEBUG = True
 ASSET_PATH = "./assets"
 MAX_FRAME_RATE = 144

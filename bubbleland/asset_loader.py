@@ -67,6 +67,13 @@ def load_bullet_graphics(game: ArepyEngine, asset_store: AssetStore):
         f"{config.ASSET_PATH}/sprites/bullets/yellow_bullet.png",
     )
 
+def load_item_graphics(game: ArepyEngine, asset_store: AssetStore):
+    asset_store.load_texture(
+        game.renderer,
+        "ammo",
+        f"{config.ASSET_PATH}/sprites/items/ammo.png",
+    )
+
 
 def load_tilemap_graphics(game: ArepyEngine, asset_store: AssetStore):
     asset_store.load_texture(
