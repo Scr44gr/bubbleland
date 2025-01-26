@@ -10,6 +10,16 @@ class Health(Component):
         self.current_health = current_health
 
 
+class EnemyAI(Component):
+    def __init__(
+        self, speed: float = 25.0, amplitude: float = 8.0, attack_range: float = 0.0
+    ):
+        self.walk_time = 0.0
+        self.walk_speed = speed
+        self.walk_amplitude = amplitude
+        self.attack_range = attack_range
+
+
 class Collider(Component):
     def __init__(self, width: int, height: int, radius: int = 0):
         self.width = width

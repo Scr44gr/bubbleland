@@ -6,7 +6,7 @@ from arepy.ecs.registry import Entity
 from arepy.engine.renderer.renderer_2d import Color, Rect, Renderer2D
 
 from bubbleland import commands, config
-from bubbleland.components import KeyboardControlled, Pickable, SimpleRectangle, Weapon
+from bubbleland.components import Pickable, SimpleRectangle, Weapon
 
 WHITE_COLOR = Color(255, 255, 255, 255)
 BLACK_COLOR = Color(0, 0, 0, 255)

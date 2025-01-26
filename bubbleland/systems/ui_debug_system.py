@@ -69,6 +69,11 @@ def show_spawn_window(engine: ArepyEngine, imgui: Imgui, weapons: Entities):
             engine,
             Vec2(500, 500),
         )
+    if imgui.button("Spawn a enemy"):
+        commands.spawn_enemy(
+            engine,
+            Vec2(500, 500),
+        )
     imgui.separator()
     imgui.text(f"Weapons in scene: {len(weapons)}")
     imgui.text(

@@ -3,8 +3,10 @@ from arepy.ecs.systems import SystemPipeline
 
 from bubbleland import asset_loader, commands, config
 from bubbleland.systems import (
+    bullet_collision_system,
     camera_shaking_system,
     collision_system,
+    enemy_ai_system,
     keyboard_control_system,
     movement_system,
     render_system,
@@ -35,12 +37,14 @@ def main():
     # generate map
     commands.generate_map(game.renderer, game.get_asset_store())
 
-    game.add_system(SystemPipeline.RENDER, render_system)
     game.add_system(SystemPipeline.RENDER, render_ui_system)
+    game.add_system(SystemPipeline.RENDER, render_system)
     game.add_system(SystemPipeline.INPUT, keyboard_control_system)
     game.add_system(SystemPipeline.UPDATE, movement_system)
     game.add_system(SystemPipeline.UPDATE, collision_system)
     game.add_system(SystemPipeline.UPDATE, camera_shaking_system)
+    game.add_system(SystemPipeline.UPDATE, bullet_collision_system)
+    game.add_system(SystemPipeline.UPDATE, enemy_ai_system)
 
     game.add_system(
         SystemPipeline.UPDATE,

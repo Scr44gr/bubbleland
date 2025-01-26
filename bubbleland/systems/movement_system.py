@@ -3,7 +3,7 @@ from arepy.ecs.entities import Entities
 from arepy.ecs.query import Query, With
 from arepy.engine.renderer.renderer_2d import Renderer2D
 
-from bubbleland.components import Projectile
+from bubbleland.components import Projectile, Weapon
 
 
 def movement_system(

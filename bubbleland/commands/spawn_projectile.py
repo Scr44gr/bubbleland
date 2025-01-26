@@ -29,7 +29,7 @@ def shoot_projectile(
         .with_component(
             Sprite(asset_id="yellow_bullet", src_rect=(0, 0, 4, 4), z_index=0)
         )
-        .with_component(Collider(width=4, height=4, radius=4))
-        .with_component(Projectile(direction=direction, life_time=2))
+        .with_component(Collider(width=4, height=4, radius=2))
+        .with_component(Projectile(direction=direction, life_time=2, damage=10))
     ).build()
     return entity
