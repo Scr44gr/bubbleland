@@ -1,4 +1,5 @@
 import pyray as pr
+from arepy import ArepyEngine
 from arepy.bundle.components import Sprite, Transform
 from arepy.ecs.entities import Entities
 from arepy.ecs.query import Query, With
@@ -62,6 +63,7 @@ def recolectable_system(
     player_query: Query[Entities, With[Transform, Collider, KeyboardControlled]],
     recolectable_items_query: Query[Entities, With[Transform, Collider, PickUp]],
     weapon_query: Query[Entities, With[Weapon, Pickable]],
+    engine: ArepyEngine,
 ):
     """
     Detects collisions between the player and recolectable entities.
@@ -95,6 +97,10 @@ def recolectable_system(
         if recolectable_item.has_component(PickUp) and activate_weapons:
             distance = abs(player_transform.position - recolectable_transform.position)
             if distance < (player_collider.radius + recolectable_collider.radius):
+                reload_sound = engine.get_asset_store().sounds.get("reload")
+                if reload_sound:
+                    engine.audio_device.play_sound(reload_sound)
+
                 increase_bullet_count(activate_weapons[0])
                 recolectable_item.kill()
 

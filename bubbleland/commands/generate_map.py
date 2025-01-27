@@ -7,8 +7,8 @@ MAP_WIDTH = 1000
 MAP_HEIGHT = 1000
 TILE_SIZE = 32
 SCREEN_SIZE = (config.RESOLUTION[0], config.RESOLUTION[1])
-WALL_WIDTH = 91  # Ancho de la textura de la pared
-WALL_HEIGHT = 32  # Alto de la textura de la pared
+WALL_WIDTH = 32
+WALL_HEIGHT = 32
 
 
 def generate_map(renderer: Renderer2D, asset_store: AssetStore):
@@ -20,7 +20,7 @@ def generate_map(renderer: Renderer2D, asset_store: AssetStore):
 
     wall_texture = asset_store.get_texture("wall_horizontal")
 
-    ground_texture = asset_store.get_texture("ground")
+    ground_texture = asset_store.get_texture("ground_2")
     texture_color = Color(255, 255, 255, 255)
 
     for y in range(0, MAP_HEIGHT, TILE_SIZE):

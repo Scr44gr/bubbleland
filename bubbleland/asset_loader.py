@@ -67,6 +67,7 @@ def load_bullet_graphics(game: ArepyEngine, asset_store: AssetStore):
         f"{config.ASSET_PATH}/sprites/bullets/yellow_bullet.png",
     )
 
+
 def load_item_graphics(game: ArepyEngine, asset_store: AssetStore):
     asset_store.load_texture(
         game.renderer,
@@ -78,6 +79,7 @@ def load_item_graphics(game: ArepyEngine, asset_store: AssetStore):
         "health",
         f"{config.ASSET_PATH}/sprites/items/health.png",
     )
+
 
 def load_tilemap_graphics(game: ArepyEngine, asset_store: AssetStore):
     asset_store.load_texture(
@@ -95,6 +97,11 @@ def load_tilemap_graphics(game: ArepyEngine, asset_store: AssetStore):
         "wall_vertical",
         f"{config.ASSET_PATH}/tilemap/bathroom_wall_borders_tilemap.png",
     )
+    asset_store.load_texture(
+        game.renderer,
+        "ground_2",
+        f"{config.ASSET_PATH}/tilemap/bathroom_foor_basic.png",
+    )
 
 
 # Sound loading functions
@@ -110,4 +117,9 @@ def load_shoot_sounds(game: ArepyEngine, asset_store: AssetStore):
         game.audio_device,
         "no_ammo",
         f"{config.ASSET_PATH}/sounds/no_ammo.ogg",
+    )
+    asset_store.load_sound(
+        game.audio_device,
+        "reload",
+        f"{config.ASSET_PATH}/sounds/reload.ogg",
     )

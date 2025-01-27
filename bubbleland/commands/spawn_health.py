@@ -22,13 +22,13 @@ def spawn_health(engine: ArepyEngine, position: Vec2) -> Entity:
                 velocity=Vec2(0, 0),
             )
         )
-        .with_component(Sprite(asset_id="health", src_rect=(0, 0, 16, 16), z_index=2))
+        .with_component(Sprite(asset_id="health", src_rect=(0, 0, 16, 10), z_index=2))
         .with_component(
             PickUp(
                 name="Health",
             )
         )
-        .with_component(Collider(width=16, height=16, radius=(16 + 16) // 2))
+        .with_component(Collider(width=16, height=16, radius=(16 + 10) // 2))
         .with_component(Health(max_health=100, current_health=100))
     ).build()
 
