@@ -20,7 +20,7 @@ classifiers = [
 ]
 keywords = ['gamejam', 'arepy', 'bubbles', 'shooter', 'python']
 requires-python = ">=3.10"
-dependencies = ["arepy"]
+dependencies = ["arepy==0.2.2"]
 dynamic = ['version']
 readme = "README.md"
 

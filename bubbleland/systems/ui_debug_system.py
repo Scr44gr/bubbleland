@@ -22,7 +22,9 @@ def ui_debug_system(
     imgui.render()
 
 
-def show_debug_window(engine, imgui):
+def show_debug_window(engine: ArepyEngine, imgui: Imgui):
+    current_world = engine.get_current_world()
+    ecs_registry = current_world.get_registry()
     imgui.set_next_window_pos(ImVec2(10, 10))
     window_flags = (
         imgui.WindowFlags_.no_decoration
@@ -31,11 +33,11 @@ def show_debug_window(engine, imgui):
         | imgui.WindowFlags_.always_auto_resize
     )
     imgui.begin("Debug", True, window_flags)
-    imgui.text("Bubbleland Debug")
+    imgui.text(f"Current world: {current_world.name}")
     imgui.separator()
     imgui.text(f"FPS: {engine.renderer.get_framerate()}")
-    imgui.text(f"Entities: {engine._registry.number_of_entities}")
-    imgui.text(f"Running Systems: {len(engine._registry.queries)}")
+    imgui.text(f"Entities: {ecs_registry.number_of_entities}")
+    imgui.text(f"Queries: {len(ecs_registry.queries)}")
     imgui.separator()
     imgui.text("Controls:")
     imgui.text("WASD to move")

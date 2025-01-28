@@ -39,24 +39,27 @@ def main():
 
     # generate map
     commands.generate_map(game.renderer, game.get_asset_store())
+    world = game.create_world("bubbleland_testing")
 
-    game.add_system(SystemPipeline.RENDER, render_system)
-    game.add_system(SystemPipeline.INPUT, keyboard_control_system)
-    game.add_system(SystemPipeline.UPDATE, movement_system)
-    game.add_system(SystemPipeline.UPDATE, collision_system)
-    game.add_system(SystemPipeline.UPDATE, camera_shaking_system)
-    game.add_system(SystemPipeline.UPDATE, bullet_collision_system)
-    game.add_system(SystemPipeline.UPDATE, enemy_ai_system)
-    game.add_system(SystemPipeline.UPDATE, pickeable_system)
-    game.add_system(SystemPipeline.UPDATE, recolectable_system)
+    world.add_system(SystemPipeline.RENDER, render_system)
+    world.add_system(SystemPipeline.INPUT, keyboard_control_system)
+    world.add_system(SystemPipeline.UPDATE, movement_system)
+    world.add_system(SystemPipeline.UPDATE, collision_system)
+    world.add_system(SystemPipeline.UPDATE, camera_shaking_system)
+    world.add_system(SystemPipeline.UPDATE, bullet_collision_system)
+    world.add_system(SystemPipeline.UPDATE, enemy_ai_system)
+    world.add_system(SystemPipeline.UPDATE, pickeable_system)
+    world.add_system(SystemPipeline.UPDATE, recolectable_system)
 
-    game.add_system(
+    world.add_system(
         SystemPipeline.UPDATE,
         weapon_follow_player_system,
     )
-    game.add_system(
+    world.add_system(
         SystemPipeline.RENDER_UI,
         ui_debug_system,
     )
+
+    game.set_current_world("bubbleland_testing")
 
     game.run()

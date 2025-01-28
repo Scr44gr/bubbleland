@@ -12,15 +12,15 @@ wheels = [
 
 [[package]]
 name = "arepy"
-version = "0.1.7"
+version = "0.2.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "bitarray" },
     { name = "raylib" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/02/be/e39850b358e9a685d04369dd39e93d0ca96cd83920ad22e3886b111ac1a8/arepy-0.1.7.tar.gz", hash = "sha256:07f1242d9558f6d645dd38cd6d6a4bc7df8518d7a3aed69a21c2ff8b52cd39c8", size = 32580 }
+sdist = { url = "https://files.pythonhosted.org/packages/75/45/980e125041d16b5a1a11e6225fbfb0df2028d1d5ba4f91c7d8be7dd0ccea/arepy-0.2.2.tar.gz", hash = "sha256:bafc3eb19c102a904990b88e640979cb8ed9be37b49ea1222d07d22a8f8f5b39", size = 34053 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/95/70/1d9e9dbf07ebf67436d1b723f34cb4ae745faa72995b2d14970848aeeb8c/arepy-0.1.7-py3-none-any.whl", hash = "sha256:127c0dfa7456ff974e550abdd842c4616c4360d1ebd65f4c567ba2cc33064431", size = 44113 },
+    { url = "https://files.pythonhosted.org/packages/84/60/a8654af82f2b41792517be00fe99e688d2d95d56bd5da1c4073f3e518900/arepy-0.2.2-py3-none-any.whl", hash = "sha256:821b67870773183c51be603daae46553462daf3f1c4d615322d2de1498a2cf8b", size = 45569 },
 ]
 
 [[package]]

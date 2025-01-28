@@ -7,8 +7,9 @@ from bubbleland.components import Collider, Health, KeyboardControlled, WalkAnim
 
 
 def spawn_player(engine: ArepyEngine, position: Vec2) -> Entity:
+    world = engine.get_current_world()
     entity = (
-        engine.create_entity()
+        world.create_entity()
         .with_component(
             Transform(
                 position=position,

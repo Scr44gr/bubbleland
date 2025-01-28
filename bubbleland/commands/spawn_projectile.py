@@ -10,8 +10,10 @@ from bubbleland.components import Collider, Projectile, SimpleRectangle
 def shoot_projectile(
     engine: ArepyEngine, position: Vec2, angle: float, direction: Vec2
 ) -> Entity:
+    world = engine.worlds.get("bubbleland_testing")
+    assert world is not None
     entity = (
-        engine.create_entity()
+        world.create_entity()
         .with_component(
             Transform(
                 position=position,

@@ -8,8 +8,10 @@ from bubbleland.components import Collider, Pickable, SimpleRectangle, Weapon
 
 
 def spawn_ak48(engine: ArepyEngine, position: Vec2) -> Entity:
+    world = engine.worlds.get("bubbleland_testing")
+    assert world is not None
     entity = (
-        engine.create_entity()
+        world.create_entity()
         .with_component(
             Transform(
                 position=position,
@@ -47,8 +49,10 @@ def spawn_ak48(engine: ArepyEngine, position: Vec2) -> Entity:
 
 
 def spawn_shotgun(engine: ArepyEngine, position: Vec2) -> Entity:
+    world = engine.worlds.get("bubbleland_testing")
+    assert world is not None
     entity = (
-        engine.create_entity()
+        world.create_entity()
         .with_component(
             Transform(
                 position=position,
@@ -86,8 +90,10 @@ def spawn_shotgun(engine: ArepyEngine, position: Vec2) -> Entity:
 
 
 def spawn_sheriff(engine: ArepyEngine, position: Vec2) -> Entity:
+    world = engine.worlds.get("bubbleland_testing")
+    assert world is not None
     entity = (
-        engine.create_entity()
+        world.create_entity()
         .with_component(
             Transform(
                 position=position,

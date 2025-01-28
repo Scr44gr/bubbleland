@@ -8,8 +8,10 @@ from bubbleland.components import Collider, Health, Pickable, PickUp, SimpleRect
 
 
 def spawn_health(engine: ArepyEngine, position: Vec2) -> Entity:
+    world = engine.worlds.get("bubbleland_testing")
+    assert world is not None
     entity = (
-        engine.create_entity()
+        world.create_entity()
         .with_component(
             Transform(
                 position=position,
