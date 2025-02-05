@@ -1,10 +1,9 @@
 from arepy import ArepyEngine
 from arepy.bundle.components import RigidBody2D, Sprite, Transform
 from arepy.ecs import Entity
-from arepy.engine.renderer import Color
 from arepy.math import Vec2
 
-from bubbleland.components import Collider, Pickable, SimpleRectangle, Weapon
+from bubbleland.components import Collider, Pickable, Weapon
 
 
 def spawn_ak48(engine: ArepyEngine, position: Vec2) -> Entity:
@@ -70,7 +69,7 @@ def spawn_shotgun(engine: ArepyEngine, position: Vec2) -> Entity:
             Weapon(
                 name="Shotgun",
                 fire_rate=0.5,
-                cooldown=1.0,
+                cooldown=2.0,
                 shake_intensity=1.7,
                 shake_duration=0.1,
                 dispersion_angle=15,

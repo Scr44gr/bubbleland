@@ -25,7 +25,7 @@ def spawn_player(engine: ArepyEngine, position: Vec2) -> Entity:
         .with_component(
             Sprite(asset_id="player_idle", src_rect=(0, 0, 32, 32), z_index=1)
         )
-        .with_component(Health(max_health=100, current_health=50))
+        .with_component(Health(max_health=100, current_health=100))
         .with_component(KeyboardControlled())
         .with_component(WalkAnimation())
         .with_component(Collider(width=32, height=32, radius=16))

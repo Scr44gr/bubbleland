@@ -6,7 +6,7 @@ from arepy.ecs.registry import Entity
 from arepy.engine.renderer.renderer_2d import Color, Rect, Renderer2D
 
 from bubbleland import commands, config
-from bubbleland.components import Pickable, SimpleRectangle, Weapon
+from bubbleland.components import Health, Pickable, SimpleRectangle, Weapon
 
 WHITE_COLOR = Color(255, 255, 255, 255)
 BLACK_COLOR = Color(0, 0, 0, 255)
@@ -66,6 +66,19 @@ def render_system(
             pickable_component = entity.get_component(Pickable)
             if pickable_component.can_be_grabbed and not pickable_component.grabbed:
                 draw_pickable_text(pickable_component, transform, renderer, 14)
+
+        # if the entity has a health component, draw a health bar
+        if entity.has_component(Health):
+            health_component = entity.get_component(Health)
+            draw_health_bar(
+                sprite,
+                transform,
+                renderer,
+                health_component.current_health,
+                health_component.max_health,
+                25,
+                5,
+            )
 
         # if the entity has a SimpleRectangle component, draw a rectangle
         if entity.has_component(SimpleRectangle):
@@ -159,4 +172,41 @@ def draw_sprite(
         dst_rect,
         rotation=transform.rotation,
         color=WHITE_COLOR,
+    )
+
+
+def draw_health_bar(
+    sprite: Sprite,
+    transform: Transform,
+    renderer: Renderer2D,
+    health: int,
+    max_health: int,
+    width: int,
+    height: int,
+    h_offset: int = 5,
+):
+    health_percentage = health / max_health
+    health_bar_width = health_percentage * width
+    health_bar_color = Color(
+        int(255 * (1 - health_percentage)), int(255 * health_percentage), 0, 255
+    )
+
+    renderer.draw_rectangle(
+        Rect(
+            transform.position.x - width,
+            transform.position.y - height - sprite.src_rect[3] - h_offset,
+            width,
+            height,
+        ),
+        color=BLACK_COLOR,
+    )
+
+    renderer.draw_rectangle(
+        Rect(
+            transform.position.x - width,
+            transform.position.y - height - sprite.src_rect[3] - h_offset,
+            int(health_bar_width),
+            height,
+        ),
+        color=health_bar_color,
     )

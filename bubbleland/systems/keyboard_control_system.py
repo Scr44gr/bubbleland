@@ -29,13 +29,14 @@ def keyboard_control_system(
 
     delta_time = renderer.get_delta_time()
     player = next(iter(query.get_entities()), None)
+    if player is None:
+        return
+
     weapon = [
         entity
         for entity in weapon_query.get_entities()
         if entity.get_component(Pickable).grabbed
     ]
-    if player is None:
-        return
 
     if weapon:
         handle_player_shooting_input(player, weapon[0], engine, input)

@@ -20,7 +20,7 @@ def generate_map(renderer: Renderer2D, asset_store: AssetStore):
 
     wall_texture = asset_store.get_texture("wall_horizontal")
 
-    ground_texture = asset_store.get_texture("ground_2")
+    ground_texture = asset_store.get_texture("ground")
     texture_color = Color(255, 255, 255, 255)
 
     for y in range(0, MAP_HEIGHT, TILE_SIZE):

@@ -28,6 +28,6 @@ def spawn_enemy(engine: ArepyEngine, position: Vec2) -> Entity:
         )
         .with_component(Collider(width=32, height=32, radius=32))
         .with_component(EnemyAI(speed=25, attack_range=100, amplitude=10))
-        .with_component(Health(150))
+        .with_component(Health(100))
     ).build()
     return entity
